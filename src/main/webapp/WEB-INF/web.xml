@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>game</display-name>
+  <welcome-file-list>
+    <welcome-file>/WEB-INF/views/index.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- <servlet>
+  	<servlet-name>ciServlet</servlet-name>
+  	<servlet-class>com.mvc.controller.ClassInfoServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ciServlet</servlet-name>
+  	<url-pattern>/class-info/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>calc</servlet-name>
+  	<servlet-class>com.mvc.controller.CalcServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>calc</servlet-name>
+  	<url-pattern>/calc/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>lotto</servlet-name>
+  	<servlet-class>com.mvc.controller.LottoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>lotto</servlet-name>
+  	<url-pattern>/lotto/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>find</servlet-name>
+  	<servlet-class>com.mvc.controller.FindServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>find</servlet-name>
+  	<url-pattern>/find/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>user-info</servlet-name>
+  	<servlet-class>com.mvc.controller.UserInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>user-info</servlet-name>
+  	<url-pattern>/user-info/*</url-pattern>
+  </servlet-mapping>
+  <servlet>
+  	<servlet-name>ciServlet</servlet-name>
+  	<servlet-class>com.mvc.controller.ClassInfoServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>ciServlet</servlet-name>
+  	<url-pattern>/class-info/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>calc</servlet-name>
+  	<servlet-class>com.mvc.controller.CalcServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>calc</servlet-name>
+  	<url-pattern>/calc/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>lotto</servlet-name>
+  	<servlet-class>com.mvc.controller.LottoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>lotto</servlet-name>
+  	<url-pattern>/lotto/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>find</servlet-name>
+  	<servlet-class>com.mvc.controller.FindServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>find</servlet-name>
+  	<url-pattern>/find/*</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>user-info</servlet-name>
+  	<servlet-class>com.mvc.controller.UserInfoServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>user-info</servlet-name>
+  	<url-pattern>/user-info/*</url-pattern>
+  </servlet-mapping> -->
+</web-app>
+
+
+
