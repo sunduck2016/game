@@ -158,10 +158,4 @@ public class UserInfoDAOImpl implements UserInfoDAO{
 		System.out.println(uiRepo.selectUserInfo("1"));
 	}
 
-	@Override
-	public List<Map<String, String>> selectuserInfoList(Map<String, String> userInfo) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
 }
