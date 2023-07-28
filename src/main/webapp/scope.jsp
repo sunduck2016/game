@@ -7,13 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<script>
-	alert('${msg}');
-	location.href='${url}';
-</script>
-<%-- <div>
-<h3>${msg}</h3>
-</div>
-<button onclick="location.href='${url}'">check</button> --%>
+<h3>scope</h3>
+<div>hello world</div>
 </body>
 </html>
