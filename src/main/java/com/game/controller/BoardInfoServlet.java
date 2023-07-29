@@ -16,28 +16,32 @@ import com.game.common.CommonView;
 import com.game.service.BoardInfoService;
 import com.game.service.impl.BoardInfoServiceImpl;
 
+/**
+ * Servlet implementation class BoardInfoServlet
+ */
 @WebServlet("/board-info/*")
 public class BoardInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private BoardInfoService biService = new BoardInfoServiceImpl();
-
-	private boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+       
+    private boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		if(session.getAttribute("user")==null) {
-			request.setAttribute("msg", "로그인이 필요한 화면 입니다.");
-			request.setAttribute("url", "/user-info/login");
+			request.setAttribute("msg",  "please log-in");
+			request.setAttribute("url",  "/user-info/login");
 			CommonView.forwardMessage(request, response);
 			return false;
 		}
 		return true;
 	}
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		if(!isLogin(request,response)) {
 			return;
 		}
 		String cmd = CommonView.getCmd(request);
-		if("list".equals(cmd)) {
-			List<Map<String, String>> list = biService.selectBoardInfoList(null);	
+		if("last".equals(cmd)) {
+			List<Map<String, String>> list = biService.selectBoardInfoList(null);
 			request.setAttribute("biList", list);
 		}else if("view".equals(cmd) || "update".equals(cmd)) {
 			String biNum = request.getParameter("biNum");
@@ -54,19 +58,19 @@ public class BoardInfoServlet extends HttpServlet {
 		}
 		String cmd = CommonView.getCmd(request);
 		HttpSession session = request.getSession();
-		Map<String,String> user = (Map<String,String>)session.getAttribute("user");
+		Map<String, String> user = (Map<String,String>)session.getAttribute("user");
 		if("insert".equals(cmd)) {
 			String biTitle = request.getParameter("biTitle");
 			String biContent = request.getParameter("biContent");
 			Map<String,String> board = new HashMap<>();
-			board.put("biTitle", biTitle);
+			board.put("biTitle",biTitle);
 			board.put("biContent", biContent);
 			board.put("uiNum", user.get("uiNum"));
 			int result = biService.insertBoardInfo(board);
-			request.setAttribute("msg", "등록이 안됬습니다.");
+			request.setAttribute("msg", "insert fail");
 			request.setAttribute("url", "/board-info/insert");
 			if(result==1) {
-				request.setAttribute("msg", "등록이 되었습니다.");
+				request.setAttribute("msg", "insert success");
 				request.setAttribute("url", "/board-info/list");
 			}
 		}else if("update".equals(cmd)) {
@@ -76,26 +80,26 @@ public class BoardInfoServlet extends HttpServlet {
 			Map<String,String> board = new HashMap<>();
 			board.put("biNum", biNum);
 			board.put("biTitle", biTitle);
-			board.put("biContent", biContent);
+			board.put("biConent", biContent);
 			board.put("uiNum", user.get("uiNum"));
 			int result = biService.updateBoardInfo(board);
-			request.setAttribute("msg", "수정이 안됬습니다.");
-			request.setAttribute("url", "/board-info/update?biNum=" + biNum);
+			request.setAttribute("msg", "update fail");
+			request.setAttribute("url", "/board-info/update?biNum="+biNum);
 			if(result==1) {
-				request.setAttribute("msg", "수정이 되었습니다.");
+				request.setAttribute("msg", "update success");
 				request.setAttribute("url", "/board-info/list");
 			}
 		}else if("delete".equals(cmd)) {
 			String biNum = request.getParameter("biNum");
 			int result = biService.deleteBoardInfo(biNum);
-			request.setAttribute("msg", "삭제가 안됬습니다.");
-			request.setAttribute("url", "/board-info/view?biNum=" + biNum);
+			request.setAttribute("msg", "delete fail");
+			request.setAttribute("url", "/board-info/list");
 			if(result==1) {
-				request.setAttribute("msg", "삭제가 되었습니다.");
+				request.setAttribute("msg","delete success");
 				request.setAttribute("url", "/board-info/list");
 			}
 		}
-		CommonView.forwardMessage(request, response);
+		CommonView.forwardMessage(request,response);
 	}
-
+	
 }

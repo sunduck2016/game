@@ -11,9 +11,9 @@ import java.util.Map;
 import com.game.common.DBCon;
 import com.game.deo.BoardInfoDAO;
 
-public class BoardInfoDAOImpl {
-	@Override
-	public List<Map<String, String>> selectBoardInfoList(Map<String, String> board) {
+public class BoardInfoDAOImpl implements BoardInfoDAO {
+	
+	public List<Map<String, String>> selectBoardInfoList(Map<String,String> board) {
 		List<Map<String, String>> list = new ArrayList<>();
 		String sql = "SELECT * FROM BOARD_INFO";
 		try(Connection con = DBCon.getCon()){
@@ -26,7 +26,7 @@ public class BoardInfoDAOImpl {
 						bi.put("biContent", rs.getString("BI_CONTENT"));
 						bi.put("uiNum", rs.getString("UI_NUM"));
 						bi.put("credat", rs.getString("CREDAT"));
-						bi.put("cretim", rs.getString("CRETIM"));
+						bi.put("crdtim", rs.getString("CRETIM"));
 						bi.put("lmodat", rs.getString("LMODAT"));
 						bi.put("lmotim", rs.getString("LMOTIM"));
 						bi.put("active", rs.getString("ACTIVE"));
@@ -39,8 +39,7 @@ public class BoardInfoDAOImpl {
 		}
 		return list;
 	}
-
-	@Override
+	
 	public Map<String, String> selectBoardInfo(String biNum) {
 		String sql = "SELECT * FROM BOARD_INFO WHERE BI_NUM=?";
 		try(Connection con = DBCon.getCon()){
@@ -54,7 +53,7 @@ public class BoardInfoDAOImpl {
 						bi.put("biContent", rs.getString("BI_CONTENT"));
 						bi.put("uiNum", rs.getString("UI_NUM"));
 						bi.put("credat", rs.getString("CREDAT"));
-						bi.put("cretim", rs.getString("CRETIM"));
+						bi.put("crdtim", rs.getString("CRETIM"));
 						bi.put("lmodat", rs.getString("LMODAT"));
 						bi.put("lmotim", rs.getString("LMOTIM"));
 						bi.put("active", rs.getString("ACTIVE"));
@@ -67,11 +66,10 @@ public class BoardInfoDAOImpl {
 		}
 		return null;
 	}
-
-	@Override
-	public int insertBoardInfo(Map<String, String> board) {
-		String sql = "INSERT INTO BOARD_INFO(\r\n"
-				+ "BI_TITLE, BI_CONTENT, UI_NUM, CREDAT,\r\n"
+	
+	public int insertBoardInfo(Map<String,String> board) {
+		String sql = "INSERT INFO BOARD_INFO(\r\n"
+				+ "BI_TITLE, BI_CONTENT, UI_NUM, CREDAT, \r\n"
 				+ "CRETIM, LMODAT, LMOTIM\r\n"
 				+ ")\r\n"
 				+ "VALUES(\r\n"
@@ -80,46 +78,45 @@ public class BoardInfoDAOImpl {
 				+ ")";
 		try(Connection con = DBCon.getCon()){
 			try(PreparedStatement ps = con.prepareStatement(sql)){
-				ps.setString(1,board.get("biTitle"));
-				ps.setString(2,board.get("biContent"));
-				ps.setString(3,board.get("uiNum"));
-				return ps.executeUpdate();
+				try(ResultSet rs = ps.executeQuery()){
+					ps.setString(1, board.get("biTitle"));
+					ps.setString(2, board.get("biContent"));
+					ps.setString(3, board.get("uiNum"));
+					return ps.executeUpdate();
+				}
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-
-	@Override
-	public int updateBoardInfo(Map<String, String> board) {
-		String sql = "UPDATE BOARD_INFO\r\n"
-				+ "SET BI_TITLE=?,\r\n"
-				+ "BI_CONTENT=?,\r\n"
-				+ "UI_NUM=?,\r\n"
+	
+	public int updateBoardInfo(Map<String,String> board) {
+		String sql = "UPDATE INFO BOARD_INFO\r\n"
+				+ "SET BI_TITLE=?, \r\n"
+				+ "BI_CONENT=?, \r\n"
+				+ "UI_NUM=?, \r\n"
 				+ "LMODAT=DATE_FORMAT(NOW(),'%Y%m%d'),\r\n"
-				+ "LMOTIM=DATE_FORMAT(NOW(),'%H%i%s')\r\n"
+				+ "LMOTIM=DATE_FORMAT(NOW(),'%Y%m%d'),\r\n"
 				+ "WHERE BI_NUM=?";
 		try(Connection con = DBCon.getCon()){
 			try(PreparedStatement ps = con.prepareStatement(sql)){
-				ps.setString(1,board.get("biTitle"));
-				ps.setString(2,board.get("biContent"));
-				ps.setString(3,board.get("uiNum"));
-				ps.setString(4,board.get("biNum"));
-				return ps.executeUpdate();
+				ps.setString(1, board.get("biTitle"));
+				ps.setString(2, board.get("biContent"));
+				ps.setString(3, board.get("uiNum"));
+				ps.setString(4, board.get("biNum"));
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return 0;
 	}
-
-	@Override
+	
 	public int deleteBoardInfo(String biNum) {
 		String sql = "DELETE FROM BOARD_INFO WHERE BI_NUM=?";
 		try(Connection con = DBCon.getCon()){
 			try(PreparedStatement ps = con.prepareStatement(sql)){
-				ps.setString(1,biNum);
+				ps.setString(1, biNum);
 				return ps.executeUpdate();
 			}
 		}catch(Exception e) {
@@ -134,7 +131,7 @@ public class BoardInfoDAOImpl {
 		biMock.put("biContent", "test");
 		biMock.put("uiNum", "2");
 		int result = biDAO.insertBoardInfo(biMock);
-		System.out.println("결과 : " + result);
+		System.out.println("result : " + result);
 		System.out.println(biDAO.selectBoardInfoList(null));
 		System.out.println(biDAO.selectBoardInfo("3"));
 	}
