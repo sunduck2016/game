@@ -9,6 +9,19 @@
 </head>
 <body>
 	<h3>게시판</h3>
+	<form action="/board-info/list" method="GET">
+	<select name = "searchType">
+		<option value="1">title</option>
+		<option value="2">uiName</option>
+		<option value="3">content</option>
+		<option value="4">title+content</option>
+		<option value="5">uiName+content</option>
+		<option value="6">title+uiName</option>
+		<option value="7">title+uiName+content</option>
+	</select>
+	<input type="text" name="searchStr" placeholder="search">
+	<button>search</button>
+	</form>
 	<div class="container">
 		<table class="table table-bordered">
 			<thead>
@@ -24,7 +37,7 @@
 				<tr>
 					<td>${board.biNum}</td>
 					<td><a href="/board-info/view?biNum=${board.biNum}">${board.biTitle}</a></td>
-					<td>${board.uiNum}</td>
+					<td>${board.uiName}</td>
 					<td>${board.credat}</td>
 				</tr>
 				</c:forEach>

@@ -15,9 +15,55 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 	
 	public List<Map<String, String>> selectBoardInfoList(Map<String,String> board) {
 		List<Map<String, String>> list = new ArrayList<>();
-		String sql = "SELECT * FROM BOARD_INFO";
+		String sql = "SELECT BI.*, UI.UI_NAME FROM board_info BI\r\n"
+				+ "INNER JOIN user_in UI\r\n"
+				+ "ON BI.UI_NUM = UI.UI_NUM WHERE 1=1";
+		if(board!=null) {
+			//sql += " AND " + board.get("key") + " LIKE CONCAT('%',?,'%')";
+			
+			String key = board.get("key");
+			if("1".equals(key)) {
+				sql += " AND BI_TITLE LIKE CONCAT('%',?,'%')";
+			} else if("2".equals(key)) {
+				sql += " AND UI_NAME LIKE CONCAT('%',?,'%')";
+			} else if("3".equals(key)) {
+				sql += " AND BI_CONTENT LIKE CONCAT('%',?,'%')";
+			} else if("4".equals(key)) {
+				sql += " AND (BI_TITLE LIKE CONCAT('%',?,'%') OR BI_CONTENT LIKE CONCAT('%',?,'%'))";
+			} else if("5".equals(key)) {
+				sql += " AND (UI_NAME LIKE CONCAT('%',?,'%') OR BI_CONTENT LIKE CONCAT('%',?,'%'))";
+			} else if("6".equals(key)) {
+				sql += " AND (BI_TITLE LIKE CONCAT('%',?,'%') OR UI_NAME LIKE CONCAT('%',?,'%'))";
+			} else if("7".equals(key)) {
+				sql += " AND (BI_TITLE LIKE CONCAT('%',?,'%') OR UI_NAME LIKE CONCAT('%',?,'%') OR BI_CONTENT LIKE CONCAT('%',?,'%'))";
+			}
+		}
+		//String sql = "SELECT * FROM BOARD_INFO";
 		try(Connection con = DBCon.getCon()){
 			try(PreparedStatement ps = con.prepareStatement(sql)){
+				if(board!=null) {
+					String key = board.get("key");
+					if("1".equals(key)) {
+						ps.setString(1, board.get("value"));
+					} else if("2".equals(key)) {
+						ps.setString(1, board.get("value"));
+					} else if("3".equals(key)) {
+						ps.setString(1, board.get("value"));
+					} else if("4".equals(key)) {
+						ps.setString(1, board.get("value"));
+						ps.setString(2, board.get("value"));
+					} else if("5".equals(key)) {
+						ps.setString(1, board.get("value"));
+						ps.setString(2, board.get("value"));
+					} else if("6".equals(key)) {
+						ps.setString(1, board.get("value"));
+						ps.setString(2, board.get("value"));
+					} else if("7".equals(key)) {
+						ps.setString(1, board.get("value"));
+						ps.setString(2, board.get("value"));
+						ps.setString(3, board.get("value"));
+					}
+				}
 				try(ResultSet rs = ps.executeQuery()){
 					while(rs.next()) {
 						Map<String,String> bi = new HashMap<>();
@@ -25,6 +71,7 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 						bi.put("biTitle", rs.getString("BI_TITLE"));
 						bi.put("biContent", rs.getString("BI_CONTENT"));
 						bi.put("uiNum", rs.getString("UI_NUM"));
+						bi.put("uiName", rs.getString("UI_NAME"));
 						bi.put("credat", rs.getString("CREDAT"));
 						bi.put("crdtim", rs.getString("CRETIM"));
 						bi.put("lmodat", rs.getString("LMODAT"));
