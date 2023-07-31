@@ -115,14 +115,18 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 	}
 	
 	public int insertBoardInfo(Map<String,String> board) {
-		String sql = "INSERT INFO BOARD_INFO(\r\n"
-				+ "BI_TITLE, BI_CONTENT, UI_NUM, CREDAT, \r\n"
-				+ "CRETIM, LMODAT, LMOTIM\r\n"
-				+ ")\r\n"
-				+ "VALUES(\r\n"
-				+ "?,?,?, DATE_FORMAT(NOW(),'%Y%m%d'),\r\n"
-				+ "DATE_FORMAT(NOW(),'%H%i%s'), DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')\r\n"
-				+ ")";
+		/*
+		 * String sql = "INSERT INFO BOARD_INFO(\r\n" +
+		 * "BI_TITLE, BI_CONTENT, UI_NUM, CREDAT, \r\n" + "CRETIM, LMODAT, LMOTIM\r\n" +
+		 * ")\r\n" + "VALUES(\r\n" + "?,?,?, DATE_FORMAT(NOW(),'%Y%m%d'),\r\n" +
+		 * "DATE_FORMAT(NOW(),'%H%i%s'), DATE_FORMAT(NOW(),'%Y%m%d'),DATE_FORMAT(NOW(),'%H%i%s')\r\n"
+		 * + ")";
+		 */
+		String sql = "INSERT INTO board_info(BI_TITLE, BI_CONTENT, UI_NUM, CREDAT, CRETIM, LMODAT, LMOTIM)\r\n"
+				+ "VALUES(?, ?, ?, DATE_FORMAT(NOW(),'%Y%m%d'),\r\n"
+				+ "DATE_FORMAT(NOW(), '%H%i%s'),\r\n"
+				+ "DATE_FORMAT(NOW(), '%Y%m%d'),\r\n"
+				+ "DATE_FORMAT(NOW(), '%H%i%s'))";
 		try(Connection con = DBCon.getCon()){
 			try(PreparedStatement ps = con.prepareStatement(sql)){
 				try(ResultSet rs = ps.executeQuery()){
@@ -139,12 +143,18 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 	}
 	
 	public int updateBoardInfo(Map<String,String> board) {
-		String sql = "UPDATE INFO BOARD_INFO\r\n"
-				+ "SET BI_TITLE=?, \r\n"
-				+ "BI_CONENT=?, \r\n"
-				+ "UI_NUM=?, \r\n"
+		/*
+		 * String sql = "UPDATE INFO BOARD_INFO\r\n" + "SET BI_TITLE=?, \r\n" +
+		 * "BI_CONENT=?, \r\n" + "UI_NUM=?, \r\n" +
+		 * "LMODAT=DATE_FORMAT(NOW(),'%Y%m%d'),\r\n" +
+		 * "LMOTIM=DATE_FORMAT(NOW(),'%Y%m%d'),\r\n" + "WHERE BI_NUM=?";
+		 */
+		String sql = "UPDATE board_info\r\n"
+				+ "SET BI_TITLE = ?,\r\n"
+				+ "BI_CONTENT=?,\r\n"
+				+ "UI_NUM=?,\r\n"
 				+ "LMODAT=DATE_FORMAT(NOW(),'%Y%m%d'),\r\n"
-				+ "LMOTIM=DATE_FORMAT(NOW(),'%Y%m%d'),\r\n"
+				+ "LMOTIM=DATE_FORMAT(NOW(),'%H%i%s')\r\n"
 				+ "WHERE BI_NUM=?";
 		try(Connection con = DBCon.getCon()){
 			try(PreparedStatement ps = con.prepareStatement(sql)){
