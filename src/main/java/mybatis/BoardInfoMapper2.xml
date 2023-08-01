@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.apache.ibatis.submitted.rounding.Mapper">
+	<!-- <select id="getUser" resultMap="usermap2"></select> -->
+  	<select id="selectBoardInfoList" resultType="com.game.vo.BoardInfoVO">
+    	SELECT UI_NUM, UI_NAME, UI_ID, UI_PWD, UI_IMG_PATH, UI_DESC,
+		UI_BIRTH, CREDAT, CRETIM, LMODAT, LMOTIM, ACTIVE FROM <!-- board -->USER_info
+		WHERE UI_NUM=#{uiNum};
+		<where>
+			<!-- ADD -->
+			<if test = 'biNum!=null and biNum!=0'>
+			AND BI_NUM = #{biNum}
+			</if>
+			<if test = 'biTitle != null and biNum != ""'>
+			AND BI_TITLE = #{biTitle}
+			</if>
+		</where>
+	</select>
+	<select id = "selectBoardInfo" resultType="com.game.vo.BoardInfoVO">
+		<!-- ADD -->SELECT * FROM BOARD_INFO WHERE BI_NUM=#{biNum}
+	</select>
+  	<!-- <insert id="getUser" resultMap="usermap2">-->
+  	<insert id = "insertBoardInfo" parameterType="com.game.vo.BoardInfoVO">
+    	INSERT INTO board_info(BI_TITLE, BI_CONTENT, UI_NUM, CREDAT, CRETIM, LMODAT, LMOTIM)
+		VALUES(#{biTitle}, #{biContent}, #{uiNum}, DATE_FORMAT(NOW(),'%Y%m%d'),
+		DATE_FORMAT(NOW(), '%H%i%s'),
+		DATE_FORMAT(NOW(), '%Y%m%d'),
+		DATE_FORMAT(NOW(), '%H%i%s'));
+	</insert>
+  	<!-- <update id="getUser" resultMap="usermap2"> -->
+  	<update id = "updateBoardInfo" parameterType="com.game.vo.BoardInfoVO">
+    	UPDATE board_info
+		SET BI_TITLE = #{biTitle},
+		BI_CONTENT=#{biContent},
+		<!-- UI_NUM=#{uiNum},
+		LMODAT=DATE_FORMAT(NOW(),'%Y%m%d'),
+		LMOTIM=DATE_FORMAT(NOW(),'%H%i%s') -->
+		WHERE BI_NUM=#{biNum};
+  	</update>
+  	<!-- <delete id="getUser" resultMap="usermap2"></delete> -->
+  	<delete id = "deleteBoardInfo" parameterType="com.game.vo.BoardInfoVO">
+    	<!-- DELETE board_info
+    	WHERE BI_NUM=#{biNum}; -->  	
+		DELETE FROM BOARD_INFO WHERE BI_NUM=#{biNum}
+	</delete>
+  <!-- <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="funkyNumber" property="funkyNumber"/>
+    <result column="roundingMode" property="roundingMode"/>
+  </resultMap>
+
+  <select id="getUser" resultMap="usermap">
+    select * from users
+  </select>
+  <insert id="insert">
+      insert into users (id, name, funkyNumber, roundingMode) values (
+        #{id}, #{name}, #{funkyNumber}, #{roundingMode}
+      )
+  </insert>
+
+  <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="funkyNumber" property="funkyNumber"/>
+    <result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+  </resultMap>
+  <select id="getUser2" resultMap="usermap2">
+    select * from users2
+  </select>
+  <insert id="insert2">
+      insert into users2 (id, name, funkyNumber, roundingMode) values (
+        #{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+      )
+  </insert> -->
+
+</mapper>

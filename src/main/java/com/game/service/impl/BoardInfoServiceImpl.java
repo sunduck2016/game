@@ -3,8 +3,8 @@ package com.game.service.impl;
 import java.util.List;
 import java.util.Map;
 
-import com.game.deo.BoardInfoDAO;
-import com.game.deo.impl.BoardInfoDAOImpl;
+import com.game.dao.BoardInfoDAO;
+import com.game.dao.impl.BoardInfoDAOImpl;
 import com.game.service.BoardInfoService;
 
 public class BoardInfoServiceImpl implements BoardInfoService{

@@ -5,8 +5,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
-import com.game.deo.UserInfoDAO;
-import com.game.deo.impl.UserInfoDAOImpl;
+import com.game.dao.UserInfoDAO;
+import com.game.dao.impl.UserInfoDAOImpl;
 import com.game.service.UserInfoService;
 
 public class UserInfoServiceImpl implements UserInfoService {

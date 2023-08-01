@@ -1,4 +1,4 @@
-package com.game.deo.impl;
+package com.game.dao.impl;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.game.common.DBCon;
-import com.game.deo.BoardInfoDAO;
+import com.game.dao.BoardInfoDAO;
 
 public class BoardInfoDAOImpl implements BoardInfoDAO {
 	
