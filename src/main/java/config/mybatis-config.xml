@@ -24,7 +24,8 @@
 	</environments>
 	
 	<mappers>
-		<mapper resource="mybatis/boardInfoMapper.xml"/> 
+		<mapper resource="mybatis/BoardInfoMapper.xml"/> 
+		<mapper resource="mybatis/UserInfoMapper.xml"/> 
 	</mappers>
 	
 	

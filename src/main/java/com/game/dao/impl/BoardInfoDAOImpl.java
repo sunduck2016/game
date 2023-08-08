@@ -16,7 +16,7 @@ public class BoardInfoDAOImpl implements BoardInfoDAO {
 	public List<Map<String, String>> selectBoardInfoList(Map<String,String> board) {
 		List<Map<String, String>> list = new ArrayList<>();
 		String sql = "SELECT BI.*, UI.UI_NAME FROM board_info BI\r\n"
-				+ "INNER JOIN user_in UI\r\n"
+				+ "INNER JOIN user_info UI\r\n"
 				+ "ON BI.UI_NUM = UI.UI_NUM WHERE 1=1";
 		if(board!=null) {
 			//sql += " AND " + board.get("key") + " LIKE CONCAT('%',?,'%')";
