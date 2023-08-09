@@ -7,48 +7,48 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.game.common.MybatisSqlSessionFactory;
-import com.game.dao.BoardInfoDAO;
-import com.game.dao.impl.BoardInfoDAOImpl;
-import com.game.mapper.BoardInfoMapper;
-import com.game.service.BoardInfoService;
-import com.game.vo.BoardInfoVO;
+import com.game.dao.MapleInfoDAO;
+import com.game.dao.impl.MapleInfoDAOImpl;
+import com.game.mapper.MapleInfoMapper;
+import com.game.service.MapleInfoService;
+import com.game.vo.MapleInfoVO;
 
-public class MapleInfoServiceImpl implements BoardInfoService{
-	private BoardInfoDAO biDAO = new BoardInfoDAOImpl();
+public class MapleInfoServiceImpl implements MapleInfoService{
+	private MapleInfoDAO miDAO = new MapleInfoDAOImpl();
 	private SqlSessionFactory ssf = MybatisSqlSessionFactory.getSqlSessionFactory();
 	
-	//public List<Map<String, String>> selectBoardInfoList(Map<String, String> board) {
-	public List<BoardInfoVO> selectBoardInfoList(BoardInfoVO board) {
+	//public List<Map<String, String>> selectMapleInfoList(Map<String, String> Maple) {
+	public List<MapleInfoVO> selectMapleInfoList(MapleInfoVO Maple) {
 		try(SqlSession session = ssf.openSession()){
-			BoardInfoMapper biMapper = session.getMapper(BoardInfoMapper.class);
-			return biMapper.selectBoardInfoList(board);
+			MapleInfoMapper miMapper = session.getMapper(MapleInfoMapper.class);
+			return miMapper.selectmapleInfoList(Maple);
 		}catch(Exception e) {
 			throw e;
 		}
-		//return biDAO.selectBoardInfoList(board);
+		//return miDAO.selectMapleInfoList(Maple);
 	}
 	/*
-	public Map<String, String> selectBoardInfo(String biNum) {
-		return biDAO.selectBoardInfo(biNum);
+	public Map<String, String> selectMapleInfo(String miNum) {
+		return miDAO.selectMapleInfo(miNum);
 	}
 	*/
-	public BoardInfoVO selectBoardInfo(String biNum) {
+	public MapleInfoVO selectMapleInfo(String miNum) {
 		try(SqlSession session = ssf.openSession()){
-			BoardInfoMapper biMapper = session.getMapper(BoardInfoMapper.class);
-			return biMapper.selectBoardInfo(biNum);
+			MapleInfoMapper miMapper = session.getMapper(MapleInfoMapper.class);
+			return miMapper.selectmapleInfo(miNum);
 		}catch(Exception e) {
 			throw e;
 		}
 	}
-	public int insertBoardInfo(Map<String, String> board) {
-		return biDAO.insertBoardInfo(board);
+	public int insertMapleInfo(Map<String, String> Maple) {
+		return miDAO.insertMapleInfo(Maple);
 	}
 	
-	public int updateBoardInfo(Map<String, String> board) {
-		return biDAO.updateBoardInfo(board);
+	public int updateMapleInfo(Map<String, String> Maple) {
+		return miDAO.updateMapleInfo(Maple);
 	}
 	
-	public int deleteBoardInfo(String biNum) {
-		return biDAO.deleteBoardInfo(biNum);
+	public int deleteMapleInfo(String miNum) {
+		return miDAO.deleteMapleInfo(miNum);
 	}
 }

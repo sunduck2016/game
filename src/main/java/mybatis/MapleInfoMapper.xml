@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.game.mapper.MapleInfoMapper">
+
+	<select id="selectMapleInfoList" resultType="com.game.vo.MapleInfoVO">
+		SELECT mi.*, UI.UI_NAME FROM Maple_INFO mi
+		INNER JOIN USER_INFO UI ON mi.UI_NUM = UI.UI_NUM
+		<where>
+			<!-- <if test = 'miNum!=null and miNum!=0'>
+			AND mi_NUM = #{miNum}
+			</if>
+			<if test = 'miTitle != null and miNum != ""'>
+			AND mi_TITLE = #{miTitle}
+			</if>-->
+			<if test = 'searchStr!=null and searchStr!=""'>
+				<if test = 'searchType == "1" or searchType == "4" or searchType == "6" or searchType == "7"'>
+					OR mi_TITLE LIKE CONCAT('%',#{searchStr},'%')
+				</if>
+				<if test = 'searchType == "2" or searchType == "5" or searchType == "6" or searchType == "7"'>
+					OR UI_NAME LIKE CONCAT('%',#{searchStr},'%')
+				</if>
+				<if test = 'searchType == "3" or searchType == "4" or searchType == "5" or searchType == "7"'>
+					OR mi_CONTENT LIKE CONCAT('%',#{searchStr},'%')
+				</if>
+			</if>
+		</where>
+	</select>
+	<select id = "selectMapleInfo" resultType="com.game.vo.MapleInfoVO">
+		SELECT * FROM Maple_INFO WHERE mi_NUM=#{miNum}
+	</select>
+	<insert id = "insertMapleInfo" parameterType="com.game.vo.MapleInfoVO">
+		INSERT INTO Maple_INFO(mi_TITLE, mi_CONTENT, UI_NUM, CREDAT, CRETIM, LMODAT, LMOTIM)
+		VALUES(#{miTitle}, #{miContent}, #{uiNum},
+		DATE_FORMAT(NOW(),'%Y%m%d'), DATE_FORMAT(NOW(),'%H%i%s'),
+		DATE_FORMAT(NOW(),'%Y%m%d'), DATE_FORMAT(NOW(),'%H%i%s'))
+	</insert>
+	<update id = "updateMapleInfo" parameterType="com.game.vo.MapleInfoVO">
+		UPDATE Maple_INFO
+		SET mi_TITLE=#{miTitle},
+		mi_CONTENT=#{miContent}
+		WHERE mi_NUM=#{miNum}
+	</update>
+	<delete id = "deleteMapleInfo" parameterType="com.game.vo.MapleInfoVO">
+		DELETE FROM Maple_INFO WHERE mi_NUM=#{miNum}
+	</delete>
+
+  <!-- <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="funkyNumber" property="funkyNumber"/>
+    <result column="roundingMode" property="roundingMode"/>
+  </resultMap>
+
+  <select id="getUser" resultMap="usermap">
+    select * from users
+  </select>
+  <insert id="insert">
+      insert into users (id, name, funkyNumber, roundingMode) values (
+        #{id}, #{name}, #{funkyNumber}, #{roundingMode}
+      )
+  </insert>
+
+  <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
+    <id column="id" property="id"/>
+    <result column="name" property="name"/>
+    <result column="funkyNumber" property="funkyNumber"/>
+    <result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+  </resultMap> 
+  <select id="getUser2" resultMap="usermap2">
+    select * from users2
+  </select>
+  <insert id="insert2">
+      insert into users2 (id, name, funkyNumber, roundingMode) values (
+        #{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
+      )
+  </insert> -->
+
+</mapper>

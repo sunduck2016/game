@@ -13,17 +13,17 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.game.common.CommonView;
-import com.game.service.BoardInfoService;
-import com.game.service.impl.BoardInfoServiceImpl;
-import com.game.vo.BoardInfoVO;
+import com.game.service.MapleInfoService;
+import com.game.service.impl.MapleInfoServiceImpl;
+import com.game.vo.MapleInfoVO;
 
 /**
- * Servlet implementation class BoardInfoServlet
+ * Servlet implementation class mapleInfoServlet
  */
-@WebServlet("/board-info/*")
+@WebServlet("/maple-info/*")
 public class MapleInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardInfoService biService = new BoardInfoServiceImpl();
+	private MapleInfoService miService = new MapleInfoServiceImpl();
        
     private boolean isLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
@@ -50,13 +50,13 @@ public class MapleInfoServlet extends HttpServlet {
 				param.put("key",key);
 				param.put("value",value);
 			}
-			//List<Map<String, String>> list = biService.selectBoardInfoList(null);
-			List<BoardInfoVO> list = biService.selectBoardInfoList(null);
-			request.setAttribute("biList", list);
+			//List<Map<String, String>> list = miService.selectmapleInfoList(null);
+			List<MapleInfoVO> list = miService.selectMapleInfoList(null);
+			request.setAttribute("miList", list);
 		}else if("view".equals(cmd) || "update".equals(cmd)) {
-			String biNum = request.getParameter("biNum");
-			BoardInfoVO board = biService.selectBoardInfo(biNum);
-			request.setAttribute("board", board);
+			String miNum = request.getParameter("miNum");
+			MapleInfoVO maple = miService.selectMapleInfo(miNum);
+			request.setAttribute("maple", maple);
 		}
 		CommonView.forward(request, response);
 	}
@@ -70,43 +70,43 @@ public class MapleInfoServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Map<String, String> user = (Map<String,String>)session.getAttribute("user");
 		if("insert".equals(cmd)) {
-			String biTitle = request.getParameter("biTitle");
-			String biContent = request.getParameter("biContent");
-			Map<String,String> board = new HashMap<>();
-			board.put("biTitle",biTitle);
-			board.put("biContent", biContent);
-			board.put("uiNum", user.get("uiNum"));
-			int result = biService.insertBoardInfo(board);
+			String miTitle = request.getParameter("miTitle");
+			String miContent = request.getParameter("miContent");
+			Map<String,String> maple = new HashMap<>();
+			maple.put("miTitle",miTitle);
+			maple.put("miContent", miContent);
+			maple.put("uiNum", user.get("uiNum"));
+			int result = miService.insertMapleInfo(maple);
 			request.setAttribute("msg", "insert fail");
-			request.setAttribute("url", "/board-info/insert");
+			request.setAttribute("url", "/maple-info/insert");
 			if(result==1) {
 				request.setAttribute("msg", "insert success");
-				request.setAttribute("url", "/board-info/list");
+				request.setAttribute("url", "/maple-info/list");
 			}
 		}else if("update".equals(cmd)) {
-			String biNum = request.getParameter("biNum");
-			String biTitle = request.getParameter("biTitle");
-			String biContent = request.getParameter("biContent");
-			Map<String,String> board = new HashMap<>();
-			board.put("biNum", biNum);
-			board.put("biTitle", biTitle);
-			board.put("biConent", biContent);
-			board.put("uiNum", user.get("uiNum"));
-			int result = biService.updateBoardInfo(board);
+			String miNum = request.getParameter("miNum");
+			String miTitle = request.getParameter("miTitle");
+			String miContent = request.getParameter("miContent");
+			Map<String,String> maple = new HashMap<>();
+			maple.put("miNum", miNum);
+			maple.put("miTitle", miTitle);
+			maple.put("miConent", miContent);
+			maple.put("uiNum", user.get("uiNum"));
+			int result = miService.updateMapleInfo(maple);
 			request.setAttribute("msg", "update fail");
-			request.setAttribute("url", "/board-info/update?biNum="+biNum);
+			request.setAttribute("url", "/maple-info/update?miNum="+miNum);
 			if(result==1) {
 				request.setAttribute("msg", "update success");
-				request.setAttribute("url", "/board-info/list");
+				request.setAttribute("url", "/maple-info/list");
 			}
 		}else if("delete".equals(cmd)) {
-			String biNum = request.getParameter("biNum");
-			int result = biService.deleteBoardInfo(biNum);
+			String miNum = request.getParameter("miNum");
+			int result = miService.deleteMapleInfo(miNum);
 			request.setAttribute("msg", "delete fail");
-			request.setAttribute("url", "/board-info/list");
+			request.setAttribute("url", "/maple-info/list");
 			if(result==1) {
 				request.setAttribute("msg","delete success");
-				request.setAttribute("url", "/board-info/list");
+				request.setAttribute("url", "/maple-info/list");
 			}
 		}
 		CommonView.forwardMessage(request,response);

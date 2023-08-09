@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h3>게시판</h3>
-	<!-- <form action="/board-info/list" method="GET">-->
+	<!-- <form action="/maple-info/list" method="GET">-->
 	<select name = "searchType" id="searchType">
 		<option value="1">title</option>
 		<option value="2">uiName</option>
@@ -26,30 +26,30 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th scope="col">번호</th>
-					<th scope="col">제목</th>
-					<th scope="col">작성자</th>
-					<th scope="col">작성일</th>
+					<th scope="col">number</th>
+					<th scope="col">name</th>
+					<th scope="col">server</th>
+					<th scope="col">job</th>
 				</tr>
 			</thead>
-			<tbody id = "Best">
-				<!--<c:forEach items="${biList}" var="board">
+			<tbody id = "Ki-chan is Best">
+				<!--<c:forEach items="${miList}" var="maple">
 				<tr>
-					<td>${board.biNum}</td>
-					<td><a href="/board-info/view?biNum=${board.biNum}">${board.biTitle}</a></td>
-					<td>${board.uiName}</td>
-					<td>${board.credat}</td>
+					<td>${maple.miNum}</td>
+					<td><a href="/maple-info/view?miNum=${maple.miNum}">${maple.miTitle}</a></td>
+					<td>${maple.uiName}</td>
+					<td>${maple.credat}</td>
 				</tr>
 				</c:forEach>-->
 				<!--<tr>
 					<td colspan="4" align="right">
-						<button type="button" class="btn btn-primary" onclick="goPage('/board-info/insert')">등록</button>
+						<button type="button" class="btn btn-primary" onclick="goPage('/maple-info/insert')">등록</button>
 					</td>
 				</tr>-->
 			</tbody>
 			<tr>
 				<td colspan="4" align="right">
-					<button type="button" class="btn btn-primary" onclick="goPage('/board-info/insert')">등록</button>
+					<button type="button" class="btn btn-primary" onclick="goPage('/maple-info/insert')">등록</button>
 				</td>
 			</tr>
 		</table>
@@ -80,15 +80,15 @@
 				if(xhr.status === 200){
 					const list = JSON.parse(xhr.responseText);
 					let html = '';
-					for(const board of list){
+					for(const maple of list){
 						html += '<tr>';
-						html += '<td>'+board.biNum+'</td>';
-						html += '<td><a href="/views/board-info/view?biNum='+board.biNum + '">'+board.biTitle+'</a></td>';
-						html += '<td>'+board.uiName+'</td>';
-						html += '<td>'+board.credat+'</td>';
+						html += '<td>'+maple.miNum+'</td>';
+						html += '<td><a href="/views/maple-info/view?miNum='+maple.miNum + '">'+maple.miName+'</a></td>';
+						html += '<td>'+maple.miServer+'</td>';
+						html += '<td>'+maple.miJob+'</td>';
 						html += '<tr>';
 					}
-					document.querySelector('#Best').innerHTML = html;
+					document.querySelector('#Ki-chan is Best').innerHTML = html;
 				}
 			}
 		}

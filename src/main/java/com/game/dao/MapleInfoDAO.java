@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 public interface MapleInfoDAO {
-	List<Map<String,String>> selectBoardInfoList(Map<String,String> board);
-	Map<String,String> selectBoardInfo(String biNum);
-	int insertBoardInfo(Map<String,String> board);
-	int updateBoardInfo(Map<String,String> board);
-	int deleteBoardInfo(String biNum);
+	List<Map<String,String>> selectMapleInfoList(Map<String,String> maple);
+	Map<String,String> selectMapleInfo(String miNum);
+	int insertMapleInfo(Map<String,String> maple);
+	int updateMapleInfo(Map<String,String> maple);
+	int deleteMapleInfo(String miNum);
 }

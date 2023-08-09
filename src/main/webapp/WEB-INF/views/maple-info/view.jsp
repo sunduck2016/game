@@ -10,37 +10,27 @@
 <body>
 <h3>게시물 상세화면</h3>
 <div class="container">
-	<!-- <form method="POST" action="/board-info/delete">
-	<input type="hidden" name="biNum" value="${board.biNum}">-->
+	<!-- <form method="POST" action="/maple-info/delete">
+	<input type="hidden" name="miNum" value="${maple.miNum}">-->
 	<table class="table table-bordered">
 		<thead>
 			<tr>
-				<th scope="col">번호</th>
-				<td id="biNum">${param.biNum }</td>
+				<th scope="col">number</th>
+				<td id="miNum">${param.miNum }</td>
 			</tr>
 			<tr>
-				<th scope="col">제목</th>
-				<td id="biTitle"><!--${board.biTitle }--></td>
+				<th scope="col">name</th>
+				<td id="miName"><!--${maple.miTitle }--></td>
 			</tr>
 			<tr>
-				<th scope="col">내용</th>
-				<td id="biContent"></td>
+				<th scope="col">server</th>
+				<td id="miServer"></td>
 			</tr>
 			<tr>
-				<th scope="col">작성자</th>
-				<td id="uiNum"></td>
+				<th scope="col">job</th>
+				<td id="uiJob"></td>
 			</tr>
-			<tr>
-				<th scope="col">작성일</th>
-				<td id="credat"></td>
-			</tr>
-			<!-- <c:if test="${user.uiNum == board.uiNum}">-->
-			<tr>
-				<th colspan="2"> 
-					<button type="button" onclick="goPage('/board-info/update?biNum=${board.biNum}')">수정</button>
-					<button>삭제</button>
-				</th>
-			</tr>
+			<!-- <c:if test="${user.uiNum == maple.uiNum}">-->
 			<!-- </c:if>-->
 		</thead>
 	</table>
@@ -51,17 +41,17 @@ function goPage(url){
 }
 function loadFunc(){
 	const xhr = new XMLHttpRequest();
-	xhr.open('GET','/json/one?biNum=${param.biNum}');
+	xhr.open('GET','/json/one?miNum=${param.miNum}');
 	xhr.onreadystatechange = function(){
 		if(xhr.readyState === 4){
 			if(xhr.status === 200) {
 				//console.log(xhr.responseText);
-				const board = JSON.parse(xhr.responseText);
-				//console.log(board);
-				for(let key in board){
-					console.log(key, board[key])
+				const maple = JSON.parse(xhr.responseText);
+				//console.log(maple);
+				for(let key in maple){
+					console.log(key, maple[key])
 					if(document.querySelector('#'+key)){
-						document.querySelector('#'+key).innerText = board[key];
+						document.querySelector('#'+key).innerText = maple[key];
 					}
 				}
 			}

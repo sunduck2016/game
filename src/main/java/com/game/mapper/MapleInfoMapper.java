@@ -2,12 +2,12 @@ package com.game.mapper;
 
 import java.util.List;
 
-import com.game.vo.BoardInfoVO;
+import com.game.vo.MapleInfoVO;
 
 public interface MapleInfoMapper {
-	List<BoardInfoVO> selectBoardInfoList(BoardInfoVO board);
-	BoardInfoVO selectBoardInfo(String biNum);
-	int insertBoardInfo(BoardInfoVO board);
-	int updateBoardInfo(BoardInfoVO board);
-	int deleteBoardInfo(BoardInfoVO board);
+	List<MapleInfoVO> selectmapleInfoList(MapleInfoVO maple);
+	MapleInfoVO selectmapleInfo(String miNum);
+	int insertmapleInfo(MapleInfoVO maple);
+	int updatemapleInfo(MapleInfoVO maple);
+	int deletemapleInfo(MapleInfoVO maple);
 }
