@@ -20,7 +20,7 @@ import com.game.vo.UserInfoVO;
 import com.google.gson.Gson;
 
 @WebServlet("/user-Info/*")
-public class UserInfoServlet extends HttpServlet {
+public class UserInfoServlet4 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private UserInfoService uiService = new UserInfoServiceImpl();
 	private Gson gson = new Gson();
