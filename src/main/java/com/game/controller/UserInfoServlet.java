@@ -95,7 +95,7 @@ public class UserInfoServlet extends HttpServlet {
 		if(userInfo.get("uiBirth")!=null) {
 			userInfo.put("uiBirth",  userInfo.get("uiBirth").replace("-", ""));
 		}
-		Map<String,String> result = new HashMap<>();
+		Map<String,String> result1 = new HashMap<>();
 		int result = 0;
 		if ("insert".equals(cmd)) {
 			result = uiService.insertUserInfo(userInfo);
